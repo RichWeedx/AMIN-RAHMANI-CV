@@ -402,3 +402,47 @@
     line-height: 1.45;
   }
 }
+
+@media (max-width: 320px) {
+  .contact-modal-overlay {
+    padding: 0.25rem;
+  }
+
+  .portfolio-layout {
+    width: min(98vw, 20rem);
+    margin: 0.25rem auto;
+    padding: 0.1rem;
+  }
+
+  .contact-modal {
+    width: min(100vw, 18rem);
+    padding: 0.8rem 0.6rem 0.85rem;
+  }
+
+  .section-modal {
+    width: min(100vw, 18rem);
+    padding: 0.85rem 0.65rem 0.9rem;
+  }
+
+  .section-modal-projects {
+    width: min(100vw, 18rem);
+  }
+
+  .contact-modal-header h2 {
+    font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+  }
+
+  .contact-modal-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0.7rem 0 0.9rem;
+  }
+
+  .contact-detail-label {
+    font-size: 0.8rem;
+  }
+
+  .contact-detail-value {
+    font-size: 1rem;
+  }
+}
