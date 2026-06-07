@@ -1,0 +1,64 @@
+.about {
+  grid-area: about;
+  display: flex;
+  align-items: center;
+  padding: 2.1rem 1.55rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.about p {
+  margin: 0;
+  width: 100%;
+  font-size: clamp(0.92rem, 0.76rem + 0.42vw, 1.12rem);
+  line-height: 1.55;
+  color: rgba(250, 246, 255, 0.94);
+  position: relative;
+  z-index: 1;
+}
+
+.about::after {
+  content: ",,";
+  position: absolute;
+  right: 0.6rem;
+  top: 7rem;
+  font-size: clamp(5.6rem, 4.7rem + 2.3vw, 8.4rem);
+  font-weight: 1000;
+  line-height: 0.7;
+  letter-spacing: 0.05em;
+  color: rgba(232, 224, 255, 0.19);
+  pointer-events: none;
+}
+
+@media (max-width: 992px) {
+  .about {
+    padding: 1.6rem 1.2rem;
+  }
+
+  .about::after {
+    top: 5.5rem;
+    font-size: clamp(4.5rem, 3.8rem + 1.7vw, 6.6rem);
+  }
+}
+
+@media (max-width: 720px) {
+  .about {
+    padding: 1.25rem 1rem;
+  }
+
+  .about p {
+    font-size: clamp(0.9rem, 0.82rem + 0.35vw, 1rem);
+  }
+
+  .about::after {
+    top: 4.7rem;
+    right: 0.35rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .about::after {
+    top: 4.1rem;
+    font-size: clamp(3.8rem, 3.3rem + 1.3vw, 5.2rem);
+  }
+}
