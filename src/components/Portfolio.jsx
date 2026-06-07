@@ -29,28 +29,28 @@ const projectItems = [
       "beside game blogs, users can create their own blog, save it, modify it.",
   },
   {
-    image: projectPlaceholderImage,
+    image: gamingProjectImage,
     alt: "Fitness platform project preview",
     title: "FITNESS PLATFORM CONCEPT",
     description:
       "A clean digital experience focused on coaching, progress tracking, and client-first fitness content.",
   },
   {
-    image: projectPlaceholderImage,
+    image: gamingProjectImage,
     alt: "Personal branding project preview",
     title: "PERSONAL BRAND SYSTEM",
     description:
       "A personal identity direction combining logo design, web presentation, and a strong visual system.",
   },
   {
-    image: projectPlaceholderImage,
+    image: gamingProjectImage,
     alt: "Gaming community platform preview",
     title: "GAMING COMMUNITY HUB",
     description:
       "A content-driven space for game updates, user-generated posts, saved articles, and community interaction.",
   },
   {
-    image: projectPlaceholderImage,
+    image: gamingProjectImage,
     alt: "Digital showcase project preview",
     title: "DIGITAL SHOWCASE WEBSITE",
     description:
