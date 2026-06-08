@@ -11,7 +11,7 @@ import "./projects_count.css";
 import "./degree.css";
 import cvFile from "../assets/AminRahmani-2026-IT-CV.pdf";
 import gamingProjectImage from "../assets/images/gaming-project.png";
-import projectPlaceholderImage from "../assets/images/no-image.jpg";
+import fitnessProjectImage from "../assets/images/amin-fitness-website.jpg";
 import logoImage from "../assets/images/logo.png";
 
 const contactEmail = "AMIN.TESSERACT@GMAIL.COM";
@@ -30,33 +30,32 @@ const projectItems = [
       "beside game blogs, users can create their own blog, save it, modify it.",
   },
   {
-    image: gamingProjectImage,
+    image: fitnessProjectImage,
     alt: "Fitness platform project preview",
-    title: "FITNESS PLATFORM CONCEPT",
-    description:
-      "A clean digital experience focused on coaching, progress tracking, and client-first fitness content.",
+    title: "AMIN FITNESS WEBSITE",
+    description: "User friendly and designed for my own advertisement!",
   },
-  {
-    image: gamingProjectImage,
-    alt: "Personal branding project preview",
-    title: "PERSONAL BRAND SYSTEM",
-    description:
-      "A personal identity direction combining logo design, web presentation, and a strong visual system.",
-  },
-  {
-    image: gamingProjectImage,
-    alt: "Gaming community platform preview",
-    title: "GAMING COMMUNITY HUB",
-    description:
-      "A content-driven space for game updates, user-generated posts, saved articles, and community interaction.",
-  },
-  {
-    image: gamingProjectImage,
-    alt: "Digital showcase project preview",
-    title: "DIGITAL SHOWCASE WEBSITE",
-    description:
-      "A polished presentation site designed to highlight services, build trust, and guide visitors toward action.",
-  },
+  // {
+  //   image: gamingProjectImage,
+  //   alt: "Personal branding project preview",
+  //   title: "PERSONAL BRAND SYSTEM",
+  //   description:
+  //     "A personal identity direction combining logo design, web presentation, and a strong visual system.",
+  // },
+  // {
+  //   image: gamingProjectImage,
+  //   alt: "Gaming community platform preview",
+  //   title: "GAMING COMMUNITY HUB",
+  //   description:
+  //     "A content-driven space for game updates, user-generated posts, saved articles, and community interaction.",
+  // },
+  // {
+  //   image: gamingProjectImage,
+  //   alt: "Digital showcase project preview",
+  //   title: "DIGITAL SHOWCASE WEBSITE",
+  //   description:
+  //     "A polished presentation site designed to highlight services, build trust, and guide visitors toward action.",
+  // },
 ];
 
 const Portfolio = () => {
