@@ -19,6 +19,7 @@ const contactPhone = "07490036127";
 const gmailComposeUrl =
   "https://mail.google.com/mail/?view=cm&fs=1&to=AMIN.TESSERACT@GMAIL.COM";
 const projectAutoSlideMs = 6000;
+const gamingBlogUrl = "https://richweedx.github.io/AMIN-XP-GAMING/";
 
 const projectItems = [
   {
@@ -63,17 +64,23 @@ const Portfolio = () => {
   const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
 
-  const handleNextProject = () => {
+  const handleNextProject = (event) => {
+    event?.stopPropagation();
     setActiveProjectIndex(
       (currentIndex) => (currentIndex + 1) % projectItems.length,
     );
   };
 
-  const handlePreviousProject = () => {
+  const handlePreviousProject = (event) => {
+    event?.stopPropagation();
     setActiveProjectIndex(
       (currentIndex) =>
         (currentIndex - 1 + projectItems.length) % projectItems.length,
     );
+  };
+
+  const handleOpenGamingBlog = () => {
+    window.open(gamingBlogUrl, "_blank", "noopener,noreferrer");
   };
 
   useEffect(() => {
@@ -438,7 +445,19 @@ const Portfolio = () => {
       </section>
       <section id="my-projects" className="portfolio-card my-projects">
         <article className="project-feature">
-          <div className="project-media" aria-label="Project image slider">
+          <div
+            className="project-media"
+            aria-label="Project image slider"
+            role="link"
+            tabIndex={0}
+            onClick={handleOpenGamingBlog}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                handleOpenGamingBlog();
+              }
+            }}
+          >
             <span className="project-badge">My Projects</span>
             <div className="project-controls" aria-label="Project controls">
               <button
