@@ -22,7 +22,7 @@
   aspect-ratio: 1 / 1;
   border-radius: 0.72rem;
   overflow: hidden;
-  padding: 0.36rem;
+  padding: 0;
   box-sizing: border-box;
   position: relative;
   border: 0;
@@ -108,6 +108,7 @@
 
 .project-slide {
   flex: 0 0 auto;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
