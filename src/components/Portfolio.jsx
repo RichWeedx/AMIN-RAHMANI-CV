@@ -11,7 +11,7 @@ import "./projects_count.css";
 import "./degree.css";
 import cvFile from "../assets/AminRahmani-2026-IT-CV.pdf";
 import gamingProjectImage from "../assets/images/gaming-project.png";
-import fitnessProjectImage from "../assets/images/amin-fitness-website.jpg";
+import fitnessProjectImage from "../assets/images/amin-fitness-website-new.png";
 import logoImage from "../assets/images/logo.png";
 
 const contactEmail = "AMIN.TESSERACT@GMAIL.COM";
@@ -19,7 +19,6 @@ const contactPhone = "07490036127";
 const gmailComposeUrl =
   "https://mail.google.com/mail/?view=cm&fs=1&to=AMIN.TESSERACT@GMAIL.COM";
 const projectAutoSlideMs = 6000;
-const gamingBlogUrl = "https://richweedx.github.io/AMIN-XP-GAMING/";
 
 const projectItems = [
   {
@@ -28,12 +27,14 @@ const projectItems = [
     title: "GAMING BLOG WEBSITE",
     description:
       "beside game blogs, users can create their own blog, save it, modify it.",
+    url: "https://richweedx.github.io/AMIN-XP-GAMING/",
   },
   {
     image: fitnessProjectImage,
     alt: "Fitness platform project preview",
     title: "AMIN FITNESS WEBSITE",
-    description: "User friendly and designed for my own advertisement!",
+    description: "my personal training website designed for potential clients!",
+    url: "https://richweedx.github.io/AMIN-FITNESS/",
   },
   // {
   //   image: gamingProjectImage,
@@ -78,8 +79,13 @@ const Portfolio = () => {
     );
   };
 
-  const handleOpenGamingBlog = () => {
-    window.open(gamingBlogUrl, "_blank", "noopener,noreferrer");
+  const handleOpenActiveProject = () => {
+    const activeProject = projectItems[activeProjectIndex];
+    if (!activeProject?.url) {
+      return;
+    }
+
+    window.open(activeProject.url, "_blank", "noopener,noreferrer");
   };
 
   useEffect(() => {
@@ -449,11 +455,11 @@ const Portfolio = () => {
             aria-label="Project image slider"
             role="link"
             tabIndex={0}
-            onClick={handleOpenGamingBlog}
+            onClick={handleOpenActiveProject}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
-                handleOpenGamingBlog();
+                handleOpenActiveProject();
               }
             }}
           >
