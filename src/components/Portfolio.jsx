@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "./navbar";
+import TabletProjectPreview from "./TabletProjectPreview";
 import "./Portfolio.css";
 import "./about.css";
 import "./skills.css";
@@ -18,7 +19,8 @@ const contactEmail = "AMIN.TESSERACT@GMAIL.COM";
 const contactPhone = "07490036127";
 const gmailComposeUrl =
   "https://mail.google.com/mail/?view=cm&fs=1&to=AMIN.TESSERACT@GMAIL.COM";
-const projectAutoSlideMs = 6000;
+const projectAutoSlideMs = 9000;
+const projectSwipeThresholdPx = 34;
 
 const projectItems = [
   {
@@ -59,10 +61,47 @@ const projectItems = [
   // },
 ];
 
+const skillItems = [
+  {
+    label: "App Development",
+    iconClass: "bx bx-cube-alt",
+    description: "Building and coding mobile or desktop applications.",
+  },
+  {
+    label: "Website Design",
+    iconClass: "bx bx-layout",
+    description: "Creating the visual layout and user experience of websites.",
+  },
+  {
+    label: "UI UX Design",
+    iconClass: "bx bx-mobile-alt",
+    description: "Designing user interfaces and optimizing user experience.",
+  },
+  {
+    label: "Game Development",
+    iconClass: "bx bx-palette",
+    description: "Developing interactive digital games.",
+  },
+  {
+    label: "Machine Learning",
+    iconClass: "bx bx-brain",
+    description:
+      "Creating algorithms that enable computers to learn from data.",
+  },
+  {
+    label: "Motion Graphics",
+    iconClass: "bx bx-movie-play",
+    description: "Designing animated visuals and multimedia content.",
+  },
+];
+
 const Portfolio = () => {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [activeSkillIndex, setActiveSkillIndex] = useState(0);
   const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
+  const projectTouchStartXRef = useRef(null);
+  const ignoreProjectOpenRef = useRef(false);
 
   const handleNextProject = (event) => {
     event?.stopPropagation();
@@ -80,12 +119,46 @@ const Portfolio = () => {
   };
 
   const handleOpenActiveProject = () => {
+    if (ignoreProjectOpenRef.current) {
+      ignoreProjectOpenRef.current = false;
+      return;
+    }
+
     const activeProject = projectItems[activeProjectIndex];
     if (!activeProject?.url) {
       return;
     }
 
     window.open(activeProject.url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleProjectTouchStart = (event) => {
+    projectTouchStartXRef.current = event.changedTouches?.[0]?.clientX ?? null;
+  };
+
+  const handleProjectTouchEnd = (event) => {
+    if (projectTouchStartXRef.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches?.[0]?.clientX;
+    const deltaX = touchEndX - projectTouchStartXRef.current;
+    projectTouchStartXRef.current = null;
+
+    if (Math.abs(deltaX) < projectSwipeThresholdPx) {
+      return;
+    }
+
+    ignoreProjectOpenRef.current = true;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (deltaX < 0) {
+      handleNextProject();
+      return;
+    }
+
+    handlePreviousProject();
   };
 
   useEffect(() => {
@@ -271,61 +344,44 @@ const Portfolio = () => {
       <section className="portfolio-card skills" aria-label="Services">
         <h3>Skills</h3>
         <ul className="services-list">
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-cube-alt" aria-hidden="true" />
-              <span>App Development</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-layout" aria-hidden="true" />
-              <span>Website Design</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-mobile-alt" aria-hidden="true" />
-              <span>UI UX Design</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-palette" aria-hidden="true" />
-              <span>Game Development</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-brain" aria-hidden="true" />
-              <span>Machine Learning</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
-          <li>
-            <span className="service-left">
-              <i className="service-icon bx bx-movie-play" aria-hidden="true" />
-              <span>Motion Graphics</span>
-            </span>
-            <span className="service-plus" aria-hidden="true">
-              +
-            </span>
-          </li>
+          {skillItems.map((skillItem, skillIndex) => (
+            <li
+              key={skillItem.label}
+              className={
+                skillIndex === activeSkillIndex ? "is-active" : undefined
+              }
+            >
+              <button
+                type="button"
+                className="service-trigger"
+                onClick={() => setActiveSkillIndex(skillIndex)}
+                aria-expanded={skillIndex === activeSkillIndex}
+                aria-controls={`skill-description-${skillIndex}`}
+              >
+                <span className="service-left">
+                  <i
+                    className={`service-icon ${skillItem.iconClass}`}
+                    aria-hidden="true"
+                  />
+                  <span>{skillItem.label}</span>
+                </span>
+                <span className="service-plus" aria-hidden="true">
+                  +
+                </span>
+              </button>
+            </li>
+          ))}
         </ul>
+        <div className="skill-description-panel" aria-live="polite">
+          <p
+            id={`skill-description-${activeSkillIndex}`}
+            key={activeSkillIndex}
+            className="skill-description-text"
+          >
+            <strong>{skillItems[activeSkillIndex].label}:</strong>{" "}
+            {skillItems[activeSkillIndex].description}
+          </p>
+        </div>
         <div className="skills-row" aria-label="Core skills">
           <span className="skill-chip">
             <i className="bx bxl-javascript" aria-hidden="true" />
@@ -451,17 +507,10 @@ const Portfolio = () => {
       <section id="my-projects" className="portfolio-card my-projects">
         <article className="project-feature">
           <div
-            className="project-media"
+            className="project-media project-media-tablet"
             aria-label="Project image slider"
-            role="link"
-            tabIndex={0}
-            onClick={handleOpenActiveProject}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                handleOpenActiveProject();
-              }
-            }}
+            onTouchStart={handleProjectTouchStart}
+            onTouchEnd={handleProjectTouchEnd}
           >
             <span className="project-badge">My Projects</span>
             <div className="project-controls" aria-label="Project controls">
@@ -482,25 +531,12 @@ const Portfolio = () => {
                 &#8250;
               </button>
             </div>
-            <div className="project-media-viewport">
-              <div
-                className="project-track"
-                style={{
-                  width: `${projectItems.length * 100}%`,
-                  transform: `translateX(-${activeProjectIndex * (100 / projectItems.length)}%)`,
-                }}
-              >
-                {projectItems.map((projectItem) => (
-                  <img
-                    key={projectItem.title}
-                    className="project-slide"
-                    style={{ width: `${100 / projectItems.length}%` }}
-                    src={projectItem.image}
-                    alt={projectItem.alt}
-                  />
-                ))}
-              </div>
-            </div>
+            <TabletProjectPreview
+              image={projectItems[activeProjectIndex].image}
+              alt={projectItems[activeProjectIndex].alt}
+              ariaLabel={`Open ${projectItems[activeProjectIndex].title} live website`}
+              onActivate={handleOpenActiveProject}
+            />
           </div>
           <div className="project-copy-viewport">
             <div

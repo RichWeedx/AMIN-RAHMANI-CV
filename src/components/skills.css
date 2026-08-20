@@ -1,6 +1,10 @@
 .skills {
   grid-area: skills;
   padding: 0.82rem 0.76rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .skills h3 {
@@ -17,14 +21,28 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.18rem;
+}
+
+.services-list::-webkit-scrollbar {
+  width: 0.32rem;
+}
+
+.services-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(222, 214, 255, 0.26);
+}
+
+.services-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .services-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   min-height: 1.58rem;
-  padding: 0.06rem 0;
+  padding: 0;
   border-bottom: 1px solid rgba(202, 186, 255, 0.18);
   transition:
     color 180ms ease,
@@ -39,9 +57,39 @@
   border-bottom-color: rgba(92, 255, 149, 0.45);
 }
 
+.services-list li.is-active {
+  border-bottom-color: rgba(92, 255, 149, 0.52);
+}
+
+.service-trigger {
+  appearance: none;
+  border: 0;
+  width: 100%;
+  min-height: 1.58rem;
+  padding: 0.06rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.service-trigger:focus-visible {
+  outline: 1px solid rgba(161, 255, 198, 0.66);
+  outline-offset: 2px;
+  border-radius: 0.38rem;
+}
+
 .services-list li:hover .service-left,
 .services-list li:hover .service-icon,
 .services-list li:hover .service-plus::before {
+  color: rgba(92, 255, 149, 0.96);
+}
+
+.services-list li.is-active .service-left,
+.services-list li.is-active .service-icon,
+.services-list li.is-active .service-plus::before {
   color: rgba(92, 255, 149, 0.96);
 }
 
@@ -93,6 +141,44 @@
   transform: rotate(180deg);
 }
 
+.services-list li.is-active .service-plus::before {
+  transform: rotate(180deg);
+}
+
+.skill-description-panel {
+  margin-top: 0.46rem;
+  padding: 0.46rem 0.56rem;
+  border-radius: 0.52rem;
+  border: 1px solid rgba(202, 186, 255, 0.18);
+  background: rgba(17, 23, 52, 0.42);
+  min-height: 2.4rem;
+  overflow: hidden;
+}
+
+.skill-description-text {
+  margin: 0;
+  color: rgba(228, 219, 248, 0.9);
+  font-size: clamp(0.72rem, 0.68rem + 0.12vw, 0.82rem);
+  line-height: 1.45;
+  animation: skillDescriptionIn 220ms ease;
+}
+
+.skill-description-text strong {
+  color: rgba(250, 246, 255, 0.97);
+}
+
+@keyframes skillDescriptionIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .skills-row {
   display: flex;
   align-items: center;
@@ -100,6 +186,7 @@
   flex-wrap: wrap;
   margin-top: 0.68rem;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .skill-chip {
@@ -139,6 +226,10 @@
   .skills-row {
     margin-top: 0.58rem;
     gap: 0.3rem;
+  }
+
+  .skill-description-panel {
+    min-height: 2.8rem;
   }
 }
 

@@ -38,7 +38,7 @@
   right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 4;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
@@ -81,6 +81,17 @@
   border-radius: 0.56rem;
 }
 
+.project-media > .tablet-project-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.project-media.project-media-tablet {
+  touch-action: pan-y;
+  background: transparent;
+  box-shadow: none;
+}
+
 .project-track {
   display: flex;
   height: 100%;
@@ -91,7 +102,7 @@
   position: absolute;
   top: 0.24rem;
   left: 0.24rem;
-  z-index: 1;
+  z-index: 5;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -190,6 +201,10 @@
 }
 
 @media (max-width: 720px) {
+  .project-controls {
+    display: none;
+  }
+
   .project-media {
     aspect-ratio: 16 / 11;
   }
